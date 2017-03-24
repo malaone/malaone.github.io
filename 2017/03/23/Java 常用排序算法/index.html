@@ -1,0 +1,720 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Java,排序," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="稳定排序与不稳定排序排序中会遇到相等的数，如数列｛a1,a2,a3,a4,a5｝中a2＝a4，如果排序后，a2有可能会在a4的后面，那么就是不稳定排序，否则为稳定排序。
+对换方法很多排序算法都会有两个数据的对换，故将其写成一个方法swap()。
+12345public static void swap(int array[],int i,int j) &amp;#123;      int temp =">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 常用排序算法">
+<meta property="og:url" content="http://yoursite.com/2017/03/23/Java 常用排序算法/index.html">
+<meta property="og:site_name" content="code and money">
+<meta property="og:description" content="稳定排序与不稳定排序排序中会遇到相等的数，如数列｛a1,a2,a3,a4,a5｝中a2＝a4，如果排序后，a2有可能会在a4的后面，那么就是不稳定排序，否则为稳定排序。
+对换方法很多排序算法都会有两个数据的对换，故将其写成一个方法swap()。
+12345public static void swap(int array[],int i,int j) &amp;#123;      int temp =">
+<meta property="og:updated_time" content="2017-03-24T01:05:43.317Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java 常用排序算法">
+<meta name="twitter:description" content="稳定排序与不稳定排序排序中会遇到相等的数，如数列｛a1,a2,a3,a4,a5｝中a2＝a4，如果排序后，a2有可能会在a4的后面，那么就是不稳定排序，否则为稳定排序。
+对换方法很多排序算法都会有两个数据的对换，故将其写成一个方法swap()。
+12345public static void swap(int array[],int i,int j) &amp;#123;      int temp =">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '18516636048',
+      author: '88小子'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/03/23/Java 常用排序算法/"/>
+
+
+
+
+
+  <title> Java 常用排序算法 | code and money </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">code and money</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">不种地的码农</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/23/Java 常用排序算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xulifei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://omyp8ldh6.bkt.clouddn.com/catLi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="code and money">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Java 常用排序算法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-23T19:54:14+08:00">
+                2017-03-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>稳定排序与不稳定排序</strong><br>排序中会遇到相等的数，如数列｛a1,a2,a3,a4,a5｝中a2＝a4，如果排序后，a2有可能会在a4的后面，那么就是不稳定排序，否则为稳定排序。</p>
+<p><strong>对换方法</strong><br>很多排序算法都会有两个数据的对换，故将其写成一个方法swap()。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> array[],<span class="keyword">int</span> i,<span class="keyword">int</span> j)</span> </span>&#123;</div><div class="line">      <span class="keyword">int</span> temp = array[i];</div><div class="line">      array[i] = array[j];</div><div class="line">      array[j] = temp;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>冒泡排序</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(<span class="keyword">int</span> a[])</span> </span>&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;a.length-<span class="number">1</span>;i++) &#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;a.length-<span class="number">1</span>-i;j++) &#123;</div><div class="line">            <span class="keyword">if</span>(a[j]&gt;a[j+<span class="number">1</span>]) &#123;</div><div class="line">                swap(a,j,j+<span class="number">1</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    System.out.println(Arrays.toString(a));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>选择排序</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">selectSort</span><span class="params">(<span class="keyword">int</span> a[])</span> </span>&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;a.length-<span class="number">1</span>;i++) &#123;</div><div class="line">        <span class="keyword">int</span> min = i;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;a.length;j++) &#123;</div><div class="line">            <span class="keyword">if</span>(a[min] &gt; a[j]) &#123;</div><div class="line">                min = j;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        swap(a,i,min);</div><div class="line">    &#125;</div><div class="line">    System.out.println(Arrays.toString(a));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>快速排序</strong><br>使用递归的方式实现该算法，为了让排序方法只有一个参数，使用了两个方法实现。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(<span class="keyword">int</span> a[])</span> </span>&#123;</div><div class="line">    quickSort(a,<span class="number">0</span>,a.length-<span class="number">1</span>);<span class="comment">//调用递归实现的排序方法</span></div><div class="line">    System.out.println(Arrays.toString(a));</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(<span class="keyword">int</span> a[],<span class="keyword">int</span> l,<span class="keyword">int</span> r)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span>(r&gt;l) &#123;</div><div class="line">        <span class="keyword">int</span> temp, high, low;</div><div class="line">        low = l;</div><div class="line">        high = r;</div><div class="line">        temp = a[l];</div><div class="line"></div><div class="line">        <span class="keyword">while</span> (high &gt; low) &#123;</div><div class="line">            <span class="keyword">while</span> (high &gt; low &amp;&amp; a[high] &gt; temp) &#123;</div><div class="line">                high --;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="keyword">if</span>(high &gt; low) &#123;</div><div class="line">                a[low++] = a[high];</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="keyword">while</span>(high &gt; low &amp;&amp; a[low] &lt; temp) &#123;</div><div class="line">                low++;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="keyword">if</span>(high &gt; low) &#123;</div><div class="line">                a[high --] = a[low];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        a[low] = temp;</div><div class="line">        quickSort(a,l,low-<span class="number">1</span>);</div><div class="line">        quickSort(a,low+<span class="number">1</span>,r);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>直接插入排序</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">insertSort</span><span class="params">(<span class="keyword">int</span> a[])</span> </span>&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; a.length;i++) &#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i;j &gt; <span class="number">0</span>;j--) &#123;</div><div class="line">            <span class="keyword">if</span> (a[j] &lt; a[j-<span class="number">1</span>]) &#123;</div><div class="line">                swap(a,j,j-<span class="number">1</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    System.out.println(Arrays.toString(a));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>希尔排序</strong><br>根据gap的计算方式不同，写出两种略有不同的代码，下面是第一种：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">shellSort</span><span class="params">(<span class="keyword">int</span>[] a)</span> </span>&#123;</div><div class="line">	<span class="keyword">int</span> len = a.length;</div><div class="line">	<span class="comment">//对不同的gap进行排序</span></div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> gap = len/<span class="number">2</span>; gap &gt; <span class="number">0</span> ; gap/=<span class="number">2</span>)</div><div class="line">    	<span class="comment">//插入排序总共比较（数组长-1）轮</span></div><div class="line">    	<span class="comment">//希尔排序将数组分为gap个子组，对每个子数组进行插入排序</span></div><div class="line">    	<span class="comment">//每个子数组进行插入排序的轮数为：（子数组长-1），那么总共为（数组长-gap）轮</span></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len-gap ; i++)</div><div class="line">	        <span class="comment">//插入排序相当于gap=1</span></div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = gap+i; j &gt;= gap;j-=gap) &#123;</div><div class="line">                <span class="keyword">if</span>(a[j] &lt; a[j-gap])</div><div class="line">                    swap(a,j,j-gap);</div><div class="line">            &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>再来看看第二种：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">shellSort2</span><span class="params">(<span class="keyword">int</span>[] a)</span> </span>&#123;</div><div class="line">	<span class="keyword">int</span> len = a.length;</div><div class="line">	<span class="keyword">int</span> gap = <span class="number">1</span>;</div><div class="line">	<span class="keyword">while</span>(gap&lt;=len/<span class="number">3</span>) &#123;</div><div class="line">		gap = gap*<span class="number">3</span>+<span class="number">1</span>;</div><div class="line">	&#125;</div><div class="line">    <span class="keyword">for</span>(; gap &gt; <span class="number">0</span> ; gap=(gap-<span class="number">1</span>)/<span class="number">3</span>)</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len-gap ; i++)</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = gap+i; j &gt;= gap;j-=gap) &#123;</div><div class="line">                <span class="keyword">if</span>(a[j] &lt; a[j-gap])</div><div class="line">                    swap(a,j,j-gap);</div><div class="line">            &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>文章推荐</strong><br><a href="http://www.cricode.com/3212.html" target="_blank" rel="external">8大排序算法图文讲解</a>，该文用动态图的方式描绘了常用的8个排序算法，有助于理解算法原理。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/排序/" rel="tag"># 排序</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/23/Java设计模式-----单例模式/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://omyp8ldh6.bkt.clouddn.com/catLi.jpg"
+               alt="xulifei" />
+          <p class="site-author-name" itemprop="name">xulifei</p>
+           
+              <p class="site-description motion-element" itemprop="description">Better an egg today than a hen tomorrow</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  1990 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xulifei</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
